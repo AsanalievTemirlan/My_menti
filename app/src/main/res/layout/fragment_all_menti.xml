@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/dark_gray"
+    tools:context=".ui.fragment.Menti.AllMentiFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <Spinner
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="50dp"
+            android:id="@+id/custom_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_spinner"
+            android:dropDownWidth="match_parent"
+            android:dropDownVerticalOffset="5dp"
+            android:layout_marginEnd="40dp"
+           />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/add"
+            android:textColor="@color/white"
+            android:id="@+id/btn_add"
+            android:backgroundTint="@color/dark_gray"
+            android:layout_margin="10dp"/>
+    </LinearLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_menti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_menti" />
+
+</LinearLayout>
