@@ -11,5 +11,6 @@ data class MentiModel(
     val group: String,
     val month: String,
     val description: String,
-    val tg: String
+    val tg: String,
+    val color: String = "gray",
 )

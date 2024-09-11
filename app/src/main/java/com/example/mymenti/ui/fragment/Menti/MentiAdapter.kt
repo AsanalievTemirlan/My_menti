@@ -2,8 +2,10 @@ package com.example.hw_03_m7.ui.medicines
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mymenti.R
 import com.example.mymenti.data.local.model.MentiModel
 import com.example.mymenti.databinding.ItemMentiBinding
 import com.example.mymenti.ui.fragment.Menti.OnClick
@@ -22,6 +24,22 @@ class MentiAdapter(
             tvGroup.text = "Группа: ${model.group}"
             tvName.setText("Имя: ${model.name}")
             tvMonth.setText("Месяц: ${model.month}")
+            when (model.color) {
+                "red" -> root.background =
+                    ContextCompat.getDrawable(root.context, R.drawable.bg_item_red)
+
+                "cold" -> root.background =
+                    ContextCompat.getDrawable(root.context, R.drawable.bg_item_cold)
+
+                "green" -> root.background =
+                    ContextCompat.getDrawable(root.context, R.drawable.bg_item_green)
+
+                "yellow" -> root.background =
+                    ContextCompat.getDrawable(root.context, R.drawable.bg_item_yellow)
+
+                else -> root.background =
+                    ContextCompat.getDrawable(root.context, R.drawable.bg_item_gray)
+            }
         }
     }
 

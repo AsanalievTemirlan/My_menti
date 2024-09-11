@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.mymenti.R
 import com.example.mymenti.databinding.FragmentDetailMentiBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -63,12 +64,11 @@ class DetailMentiFragment : Fragment() {
             tvDescription.text = "Описание: ${it.description}"
             tvGroup.text = "Группа: ${it.group}"
             tvMonth.text = "Месяц: ${it.month}"
-        })
+        }
     }
 
     private fun openTelegram(username: String) {
         val url = "tg://resolve?domain=$username"
-
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse(url)
             setPackage("org.telegram.messenger")

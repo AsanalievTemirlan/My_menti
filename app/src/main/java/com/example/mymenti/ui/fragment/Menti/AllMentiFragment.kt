@@ -47,7 +47,7 @@ class AllMentiFragment : Fragment(), OnClick {
     }
 
     private fun setupSpinner() {
-        val categories = listOf("Имя", "Месяц", "Группа")
+        val categories = listOf("Имя", "Месяц", "Группа", "Все")
         val adapterS =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
         adapterS.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -77,13 +77,6 @@ class AllMentiFragment : Fragment(), OnClick {
             rvMenti.adapter = adapter
             adapter.submitList(mentiList)
         }
-//        viewModel.getAllMenti().observe(viewLifecycleOwner) { mentiList ->
-////            Log.e("TAG", "setupRecyclerView: $mentiList", )
-//            adapter = MentiAdapter(this@AllMentiFragment, this@AllMentiFragment)
-//            adapter.submitList(mentiList)
-//            rvMenti.adapter = adapter
-//        }
-//    }
     }
 
     private fun getFilterValue(category: String): Any {
