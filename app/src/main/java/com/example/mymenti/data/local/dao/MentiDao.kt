@@ -20,7 +20,7 @@ interface MentiDao {
     @Delete
     suspend fun deleteMenti(menti: MentiModel)
 
-    @Query("SELECT * FROM MentiModel ")
+    @Query("SELECT * FROM MentiModel")
     fun getAllMenti(): LiveData<List<MentiModel>>
 
     @Query("SELECT * FROM MentiModel WHERE id = :id")
