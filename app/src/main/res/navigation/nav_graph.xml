@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/allMentiFragment">
+    app:startDestination="@id/bioFragment">
 
     <fragment
         android:id="@+id/allMentiFragment"
@@ -49,4 +49,9 @@
 
         </action>
     </fragment>
+    <fragment
+        android:id="@+id/bioFragment"
+        android:name="com.example.mymenti.ui.fragment.BioFragment"
+        android:label="fragment_bio"
+        tools:layout="@layout/fragment_bio" />
 </navigation>

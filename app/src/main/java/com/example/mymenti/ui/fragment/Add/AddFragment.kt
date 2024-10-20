@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mymenti.data.local.model.MentiModel
 import com.example.mymenti.databinding.FragmentAddBinding
 import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AddFragment : Fragment() {
@@ -40,10 +42,12 @@ class AddFragment : Fragment() {
     }
 
     private fun initializeData() {
-        if (args.mentiID != -1) {
-            viewModel.getMentiByID(args.mentiID).observe(viewLifecycleOwner) {
-                dataBind(it)
-                existingModel = it
+        lifecycleScope.launch {
+            if (args.mentiID != -1) {
+                viewModel.getMentiByID(args.mentiID).collect {
+                    dataBind(it)
+                    existingModel = it
+                }
             }
         }
     }

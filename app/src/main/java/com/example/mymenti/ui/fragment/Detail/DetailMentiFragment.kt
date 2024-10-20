@@ -10,12 +10,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.mymenti.R
 import com.example.mymenti.databinding.FragmentDetailMentiBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailMentiFragment : Fragment() {
@@ -49,9 +49,15 @@ class DetailMentiFragment : Fragment() {
             findNavController().navigateUp()
         }
         binding.tvTelegram.setOnClickListener {
-            viewModel.getMenti(args.mentiID).observe(viewLifecycleOwner){
-                val telegramUsername = it.tg
-                openTelegram(telegramUsername)
+            viewModel.getMentiById(args.mentiID)
+
+            lifecycleScope.launch {
+                viewModel.mentiStateFlow.collect { menti ->
+                    menti?.let {
+                        val telegramUsername = it.tg
+                        openTelegram(telegramUsername)
+                    }
+                }
             }
         }
 
@@ -59,11 +65,17 @@ class DetailMentiFragment : Fragment() {
 
 
     private fun addData() = with(binding) {
-        viewModel.getMenti(args.mentiID).observe(viewLifecycleOwner){
-            tvName.text = "Имя: ${it.name}"
-            tvDescription.text = "Описание: ${it.description}"
-            tvGroup.text = "Группа: ${it.group}"
-            tvMonth.text = "Месяц: ${it.month}"
+        viewModel.getMentiById(args.mentiID)
+
+        lifecycleScope.launch {
+            viewModel.mentiStateFlow.collect{ menti ->
+                menti?.let {
+                    tvName.text = "Имя: ${it.name}"
+                    tvDescription.text = "Описание: ${it.description}"
+                    tvGroup.text = "Группа: ${it.group}"
+                    tvMonth.text = "Месяц: ${it.month}"
+                }
+            }
         }
     }
 

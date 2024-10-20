@@ -66,7 +66,7 @@ dependencies {
     annotationProcessor(libs.androidx.room.compiler)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx) // добавьте эту строку для поддержки корутин
-
+    implementation( "androidx.biometric:biometric:1.1.0")
 
     //Dagger-Hilt
     implementation(libs.hilt.android)

@@ -10,13 +10,14 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_03_m7.ui.medicines.MentiAdapter
 import com.example.mymenti.data.local.model.MentiModel
 import com.example.mymenti.databinding.FragmentAllMentiBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.log
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AllMentiFragment : Fragment(), OnClick {
@@ -38,11 +39,25 @@ class AllMentiFragment : Fragment(), OnClick {
         setupSpinner()
         setupRecyclerView()
         initListener()
+
+        val stateFlow = MutableStateFlow("state")
+
+        // В Activity или Fragment
+        lifecycleScope.launch {
+            stateFlow.collect { newValue ->
+                // Обновление UI
+            }
+        }
+
     }
 
     private fun initListener() = with(binding) {
-        btnAdd.setOnClickListener{
-            findNavController().navigate(AllMentiFragmentDirections.actionAllMentiFragmentToAddFragment(-1))
+        btnAdd.setOnClickListener {
+            findNavController().navigate(
+                AllMentiFragmentDirections.actionAllMentiFragmentToAddFragment(
+                    -1
+                )
+            )
         }
     }
 
@@ -62,8 +77,8 @@ class AllMentiFragment : Fragment(), OnClick {
             ) {
                 val selectedCategory = categories[position]
                 // Retrieve the value for filtering (e.g., from an EditText)
-                Log.e("ololo", "onItemSelected: $selectedCategory", )
-               viewModel.filterMentiByCategory(selectedCategory)
+                Log.e("ololo", "onItemSelected: $selectedCategory")
+                viewModel.filterMentiByCategory(selectedCategory)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -72,7 +87,7 @@ class AllMentiFragment : Fragment(), OnClick {
 
     private fun setupRecyclerView() = with(binding) {
         viewModel.filteredMenti.observe(viewLifecycleOwner) { mentiList ->
-            Log.e("ololo", "setupRecyclerView: $mentiList ", )
+            Log.e("ololo", "setupRecyclerView: $mentiList ")
             adapter = MentiAdapter(this@AllMentiFragment, this@AllMentiFragment)
             rvMenti.adapter = adapter
             adapter.submitList(mentiList)
@@ -89,7 +104,8 @@ class AllMentiFragment : Fragment(), OnClick {
     }
 
     override fun onClick(mentiId: MentiModel) {
-        val action = AllMentiFragmentDirections.actionAllMentiFragmentToDetailMentiFragment(mentiId.id)
+        val action =
+            AllMentiFragmentDirections.actionAllMentiFragmentToDetailMentiFragment(mentiId.id)
         findNavController().navigate(action)
     }
 

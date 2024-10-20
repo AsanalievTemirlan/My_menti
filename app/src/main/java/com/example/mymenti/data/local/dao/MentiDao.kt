@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.mymenti.data.local.model.MentiModel
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MentiDao {
@@ -24,7 +25,7 @@ interface MentiDao {
     fun getAllMenti(): LiveData<List<MentiModel>>
 
     @Query("SELECT * FROM MentiModel WHERE id = :id")
-    fun getMentiById(id: Int): LiveData<MentiModel>
+    fun getMentiById(id: Int): Flow<MentiModel>
 
     @Query("SELECT * FROM MentiModel ORDER BY name ASC ")
     fun getMentiByName(): LiveData<List<MentiModel>>
